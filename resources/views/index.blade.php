@@ -17,6 +17,13 @@
 
           <h3 class="mb-5">Fadhlan & Hanaa</h3>
 
+          @php
+            // Pastikan $galleries ada isinya, kalau kosong kasih array kosong biar React gak crash
+            $imageUrls = isset($galleries) ? $galleries->map(function($item) {
+                return asset('storage/' . $item->image);
+            }) : [];
+          @endphp
+
           <div id="bounce-cards-root" data-images="{{ json_encode($imageUrls) }}"
             style="display: flex; justify-content: center; min-height: 400px;"></div>
 
