@@ -14,12 +14,28 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1 style="color: white;">Gallery</h1>
-              <p class="mb-0" style="color: rgba(255,255,255,0.7);">Koleksi foto terbaik kami dalam satu galeri.</p>
+              
+              <h1 style="color: white;">
+                @isset($category)
+                    Gallery: {{ ucfirst($category) }}
+                @else
+                    Gallery
+                @endisset
+              </h1>
+              
+              <p class="mb-0" style="color: rgba(255,255,255,0.7);">
+                @isset($category)
+                    Menampilkan koleksi foto kategori {{ $category }}.
+                @else
+                    Koleksi foto terbaik kami dalam satu galeri.
+                @endisset
+              </p>
+              
             </div>
           </div>
         </div>
       </div>
+      
       <nav class="breadcrumbs">
         <div class="container">
           <ol>

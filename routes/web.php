@@ -19,8 +19,10 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-// Rute ini arahkan ke controller yang kodenya udah kita benerin tadi
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+
+Route::get('/gallery/category/{category}', [GalleryController::class, 'category'])->name('gallery.category');
+
 Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('gallery.single');
 
 // --- HALAMAN ADMIN (DASHBOARD) ---

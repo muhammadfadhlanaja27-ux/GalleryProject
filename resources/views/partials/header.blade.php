@@ -10,10 +10,11 @@
       <ul>
         <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
         <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">About</a></li>
-        <li class="dropdown"><a href="{{ route('gallery') }}"><span>Gallery</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <li class="dropdown"><a href="{{ route('gallery') }}"><span>Gallery</span> <i
+              class="bi bi-chevron-down toggle-dropdown"></i></a>
           <ul>
-            <li><a href="{{ route('gallery') }}">Sendiri</a></li>
-            <li><a href="{{ route('gallery') }}">Berdua</a></li>
+            <li><a href="{{ route('gallery.category', 'Sendiri') }}">Sendiri</a></li>
+            <li><a href="{{ route('gallery.category', 'Berdua') }}">Berdua</a></li>
           </ul>
         </li>
       </ul>

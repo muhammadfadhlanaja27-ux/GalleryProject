@@ -1396,7 +1396,7 @@ section,
 /* Styling dasar kartu */
 .card {
   position: absolute;
-  width: 150px; /* Sesuaikan ukuran kartu kamu */
+  width: 125px; /* Sesuaikan ukuran kartu kamu */
   aspect-ratio: 1/1;
   border-radius: 15px;
   overflow: hidden;

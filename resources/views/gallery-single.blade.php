@@ -53,12 +53,10 @@
 
           <div class="col-lg-3">
             <div class="glass-card info-box accent-border">
-              <h3 class="info-title">Project information</h3>
+              <h3 class="info-title">Photo information</h3>
               <ul class="info-list">
                 <li><strong>Category:</strong> <span class="accent-text">{{ $gallery->category }}</span></li>
-                <li><strong>Client:</strong> <span>Internal Photography</span></li>
-                <li><strong>Project date:</strong> <span>{{ $gallery->created_at->format('d M, Y') }}</span></li>
-                <li><strong>Project URL:</strong> <a href="#" class="accent-text">N/A</a></li>
+                <li><strong>Upload Photo Tanggal:</strong> <span>{{ $gallery->created_at->format('d M, Y') }}</span></li>
               </ul>
             </div>
           </div>

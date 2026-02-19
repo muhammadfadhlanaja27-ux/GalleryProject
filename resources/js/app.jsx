@@ -78,7 +78,7 @@ if (element1) {
         <TextType
             text={["Selamat Datang Di Gallery Kamiiii", "Selamat Melihat Foto-Foto Kamii"]}
             typingSpeed={75}
-            pauseDuration={3000}
+            pauseDuration={5000}
             showCursor
             cursorCharacter="_"
             deletingSpeed={50}
@@ -96,7 +96,7 @@ if (element2) {
         <TextType
             text={["Fadhlan & Hanaa", "Enjoyyy!"]}
             typingSpeed={75}
-            pauseDuration={3000}
+            pauseDuration={5000}
             showCursor
             cursorCharacter="_"
             deletingSpeed={50}

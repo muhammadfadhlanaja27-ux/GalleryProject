@@ -22,8 +22,20 @@ class GalleryController extends Controller
     public function show($id): View
     {
         $gallery = Gallery::findOrFail($id);
-        
+
         // Di screenshot lu, nama filenya 'gallery-single.blade.php', jadi panggil 'gallery-single'
         return view('gallery-single', compact('gallery'));
+    }
+
+    // Tambahkan function ini di dalam class GalleryController
+    public function category($category): View
+    {
+        // Mengambil data yang kategorinya sama dengan parameter di URL
+        // Kita gunakan latest() agar foto terbaru muncul di atas
+        $galleries = Gallery::where('category', $category)->latest()->get();
+
+        // Kita tetap pakai view 'gallery' yang sama agar tidak perlu buat file baru
+        // Kita kirimkan variabel $category juga untuk judul halaman nantinya
+        return view('gallery', compact('galleries', 'category'));
     }
 }
