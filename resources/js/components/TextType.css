@@ -1,0 +1,35 @@
+/* Styling Umum untuk kedua teks */
+.text-type {
+  display: block;
+  white-space: pre-wrap;
+  color: var(--heading-color);
+  font-family: var(--heading-font);
+  font-weight: bold;
+  /* HAPUS padding-top: 50px agar tidak ada space kosong di atas teks */
+  padding-top: 0; 
+  margin: 0;
+  line-height: 1.1; /* Mengatur kerapatan baris */
+}
+
+/* KHUSUS Teks Utama (Atas) */
+#text-type-root .text-type {
+  font-size: 32px; /* Jika ingin jarak hanya di paling atas (sebelum teks pertama) */
+}
+
+/* KHUSUS Teks Subtitle (Bawah) */
+#text-type-subtitle-root .text-type {
+  font-size: 24px;      /* Mengecilkan ukuran teks sesuai keinginan */
+  font-weight: normal;  /* Opsional: membuat subtitle tidak terlalu tebal */
+  color: #ffffff;       /* Opsional: warna abu-abu agar lebih estetik */
+  margin-top: 5px;      /* Mengatur jarak tipis dengan teks di atasnya */
+  padding-bottom: 20px;
+}
+
+/* Menghilangkan margin bawaan pada container root */
+#text-type-root, #text-type-subtitle-root {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

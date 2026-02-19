@@ -334,128 +334,105 @@ h6 {
 }
 
 /* Navmenu - Mobile */
+/* Sembunyikan navigasi asli di mobile dan siapkan mode pop-up */
 @media (max-width: 1199px) {
+  /* Hilangkan overlay hitam besar bawaan template */
+  .mobile-nav-active .mobile-nav-show {
+    display: none !important;
+  }
+
+  /* Posisikan Ikon Garis Tiga di Kanan */
   .mobile-nav-toggle {
-    color: var(--nav-color);
-    font-size: 28px;
-    line-height: 0;
-    margin-right: 10px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  .navmenu {
-    padding: 0;
-    z-index: 9997;
-  }
-
-  .navmenu ul {
-    display: none;
-    position: absolute;
-    inset: 60px 20px 20px 20px;
-    padding: 10px 0;
-    margin: 0;
-    border-radius: 6px;
-    background-color: var(--nav-mobile-background-color);
-    overflow-y: auto;
-    transition: 0.3s;
-    z-index: 9998;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  .navmenu a,
-  .navmenu a:focus {
-    color: var(--nav-dropdown-color);
-    padding: 10px 20px;
-    font-family: var(--nav-font);
-    font-size: 17px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    white-space: nowrap;
-    transition: 0.3s;
-  }
-
-  .navmenu a i,
-  .navmenu a:focus i {
-    font-size: 12px;
-    line-height: 0;
-    margin-left: 5px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: 0.3s;
-    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-  }
-
-  .navmenu a i:hover,
-  .navmenu a:focus i:hover {
-    background-color: var(--accent-color);
-    color: var(--contrast-color);
-  }
-
-  .navmenu a:hover,
-  .navmenu .active,
-  .navmenu .active:focus {
-    color: var(--nav-dropdown-hover-color);
-  }
-
-  .navmenu .active i,
-  .navmenu .active:focus i {
-    background-color: var(--accent-color);
-    color: var(--contrast-color);
-    transform: rotate(180deg);
-  }
-
-  .navmenu .dropdown ul {
-    position: static;
-    display: none;
-    z-index: 99;
-    padding: 10px 0;
-    margin: 10px 20px;
-    background-color: var(--nav-dropdown-background-color);
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-    box-shadow: none;
-    transition: all 0.5s ease-in-out;
-  }
-
-  .navmenu .dropdown ul ul {
-    background-color: rgba(33, 37, 41, 0.1);
-  }
-
-  .navmenu .dropdown>.dropdown-active {
-    display: block;
-    background-color: rgba(33, 37, 41, 0.03);
-  }
-
-  .mobile-nav-active {
-    overflow: hidden;
-  }
-
-  .mobile-nav-active .mobile-nav-toggle {
-    color: #fff;
-    position: absolute;
+    display: block !important;
+    position: relative !important; /* Ubah dari absolute jika ada */
+    right: 0 !important;
+    left: auto !important;
+    margin-left: 15px !important;
+    order: 3; /* Memastikan urutan paling terakhir */
+    color: #fff !important;
     font-size: 32px;
-    top: 15px;
-    right: 15px;
-    margin-right: 0;
     z-index: 9999;
+    cursor: pointer;
+  }
+
+  /* Styling Container Pop-up */
+  .navmenu {
+    display: none;
   }
 
   .mobile-nav-active .navmenu {
-    position: fixed;
-    overflow: hidden;
-    inset: 0;
-    background: rgba(33, 37, 41, 0.8);
-    transition: 0.3s;
+    display: block !important;
+    position: absolute !important;
+    top: 70px !important; /* Jarak dari header */
+    right: 20px !important; /* Mepet kanan */
+    left: auto !important;
+    width: 200px !important;
+    z-index: 9998;
   }
 
-  .mobile-nav-active .navmenu>ul {
+  /* Isi Menu Pop-up */
+  .mobile-nav-active .navmenu ul {
+    background: rgba(20, 20, 20, 0.9) !important;
+    backdrop-filter: blur(15px); /* Efek kaca */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 15px !important;
+    padding: 8px 0 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    display: block !important;
+    list-style: none;
+    margin: 0;
+  }
+
+  /* Styling Link di dalam Pop-up */
+  .navmenu ul li a {
+    padding: 12px 20px !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 14px !important;
+    font-weight: 500;
     display: block;
+    text-decoration: none;
+    transition: 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .navmenu ul li a:hover, 
+  .navmenu ul li a.active {
+    color: #ef9eef !important; /* Warna accent pink */
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .navmenu ul li:last-child a {
+    border-bottom: none;
+  }
+
+  /* Sembunyikan dropdown dalam mobile pop-up agar tetap simpel */
+  .navmenu .dropdown ul {
+    position: static !important;
+    display: none !important; /* Menghindari pop-up di dalam pop-up */
+  }
+
+  .navmenu .dropdown:hover > ul,
+  .navmenu .dropdown.active > ul {
+    display: block !important;
+    position: static !important;
+    background: rgba(255, 255, 255, 0.03) !important; /* Warna sedikit beda agar kontras */
+    margin: 5px 10px !important;
+    border-radius: 10px !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Styling khusus untuk item di dalam dropdown mobile */
+  .navmenu .dropdown ul li a {
+    padding: 10px 30px !important; /* Padding lebih dalam ke kanan */
+    font-size: 13px !important;
+    border-bottom: none !important;
+  }
+
+  /* Mengatur ikon panah agar berputar saat terbuka */
+  .navmenu .dropdown:hover > a i {
+    transform: rotate(180deg);
+    transition: 0.3s;
   }
 }
 
@@ -1063,6 +1040,27 @@ section,
 }
 
 @media (max-width: 575px) {
+  .gallery .container-fluid {
+    padding: 0 10px;
+  }
+  
+  /* Kecilkan jarak antar foto */
+  .gy-4 {
+    --bs-gutter-y: 0.8rem;
+    --bs-gutter-x: 0.8rem;
+  }
+
+  /* Kecilkan ukuran ikon preview agar pas di foto yang kecil */
+  .gallery-item .gallery-links a {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+  
+  /* Hilangkan efek translate agar tidak 'berat' saat di scroll di HP */
+  .gallery-item:hover {
+    transform: none !important;
+  }
 
   .gallery-details .swiper-button-prev,
   .gallery-details .swiper-button-next {
@@ -1393,13 +1391,12 @@ section,
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
 }
 
 /* Styling dasar kartu */
 .card {
   position: absolute;
-  width: 220px; /* Sesuaikan ukuran kartu kamu */
+  width: 150px; /* Sesuaikan ukuran kartu kamu */
   aspect-ratio: 1/1;
   border-radius: 15px;
   overflow: hidden;
@@ -1431,16 +1428,24 @@ section,
 
 /* Membuat Header Transparan */
 .header-transparent {
-    background: transparent !important; /* Menghilangkan warna background */
-    box-shadow: none !important;        /* Menghilangkan bayangan garis bawah */
-    position: absolute !important;      /* Membuat header melayang di atas konten */
+    /* Gunakan rgba agar ada sedikit lapisan warna (hitam tipis 20%) */
+    background: rgba(0, 0, 0, 0.2) !important; 
+    
+    /* Efek Blur di belakang header */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: none !important;
+    position: absolute !important;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;                      /* Pastikan di atas FaultyTerminal */
-    transition: all 0.3s ease;          /* Efek halus saat transisi */
+    z-index: 1000;
+    transition: all 0.3s ease;
+    
+    /* Tambahkan padding agar tidak terlalu mepet atas */
+    padding: 15px 0; 
 }
-
 /* Mengatur warna teks agar terlihat di background gelap */
 .header-transparent .sitename, 
 .header-transparent .navmenu a, 
@@ -1509,4 +1514,100 @@ section,
  box-shadow: 0 0 0.6em .25em var(--glow-color),
         0 0 2.5em 2em var(--glow-spread-color),
         inset 0 0 .5em .25em var(--glow-color);
+}
+
+/*--------------------------------------------------------------
+# Gallery Single Page - Terminal & Glass Style
+--------------------------------------------------------------*/
+
+/* Memastikan body tidak menutupi terminal */
+body.gallery-single-page {
+    background-color: transparent !important;
+}
+
+/* Container Terminal */
+.terminal-container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-color: #000; /* Warna dasar jika animasi loading */
+}
+
+/* Wrapper Konten Utama */
+.main-content-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* Memaksa background template aslinya jadi transparan */
+.transparent-bg, 
+#gallery-details, 
+.page-title {
+    background: transparent !important;
+}
+
+/* Tipografi */
+.gallery-single-title { color: #ffffff; font-weight: bold; }
+.gallery-single-subtitle { color: rgba(255, 255, 255, 0.7); }
+.accent-title { color: #ef9eef; margin-bottom: 15px; }
+.accent-text { color: #ef9eef !important; }
+.info-title { 
+    color: white; 
+    border-bottom: 1px solid rgba(255,255,255,0.2); 
+    padding-bottom: 10px; 
+    margin-bottom: 15px;
+}
+
+/* Frame Gambar */
+.single-image-frame {
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.main-img-render {
+    max-height: 70vh;
+    width: auto;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+/* Kartu Glassmorphism */
+.glass-card {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    color: white;
+}
+
+.desc-box {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-box {
+    background: rgba(239, 158, 239, 0.1);
+    border: 1px solid rgba(239, 158, 239, 0.3);
+}
+
+.info-list { list-style: none; padding: 0; }
+.info-list li { margin-bottom: 10px; }
+.info-list strong { color: #ef9eef; }
+
+/* Breadcrumbs */
+.breadcrumbs ol li a, 
+.breadcrumbs ol li.current { 
+    color: white !important; 
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .main-img-render {
+        max-height: 50vh;
+    }
+    .glass-card {
+        padding: 20px;
+    }
 }

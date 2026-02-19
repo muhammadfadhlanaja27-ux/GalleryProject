@@ -15,7 +15,7 @@ class GalleryController extends Controller
         $galleries = Gallery::latest()->get();
 
         // Di screenshot lu, nama filenya 'index.blade.php', jadi panggil 'index'
-        return view('index', compact('galleries'));
+        return view('gallery', compact('galleries'));
     }
 
     // Menampilkan detail satu foto

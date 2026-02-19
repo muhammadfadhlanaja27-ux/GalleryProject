@@ -10,22 +10,22 @@
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center" style="color: white; padding-top: 100px;">
 
-          <h2>
-            Haiiii Ini Gallery Kamiiii
-            <span id="split-text-root" data-text=""></span>
-          </h2>
-
-          <h3 class="mb-5">Fadhlan & Hanaa</h3>
+          <Span id="text-type-root"></Span>
+          <Span id="text-type-subtitle-root"></Span>
 
           @php
             // Pastikan $galleries ada isinya, kalau kosong kasih array kosong biar React gak crash
-            $imageUrls = isset($galleries) ? $galleries->map(function($item) {
-                return asset('storage/' . $item->image);
+            $imageUrls = isset($galleries) ? $galleries->map(function ($item) {
+              return asset('storage/' . $item->image);
             }) : [];
           @endphp
 
           <div id="bounce-cards-root" data-images="{{ json_encode($imageUrls) }}"
             style="display: flex; justify-content: center; min-height: 400px;"></div>
+
+          <div id="circular-gallery-root" data-images="{{ json_encode($imageUrls) }}"
+            style="width: 100%; height: 300px; margin: 0 auto;">
+          </div>
 
           <div class="d-flex justify-content-center mt-5">
             <a href="{{ route('gallery') }}">

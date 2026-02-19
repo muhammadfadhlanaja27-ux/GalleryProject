@@ -35,7 +35,7 @@
         <div class="row gy-4 justify-content-center">
 
           @forelse($galleries as $gallery)
-            <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
               <div class="gallery-item h-100"
                 style="background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;">
 
