@@ -20,8 +20,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (config('app.env') === 'production') {
-            // Paksa Laravel menggunakan folder /tmp (yang bisa ditulis di Vercel)
-            config(['view.compiled' => '/tmp/storage/framework/views']);
+            // Buat path folder temporary
+            $viewPath = '/tmp/storage/framework/views';
+
+            // Cek jika folder belum ada, maka buat secara otomatis
+            if (!is_dir($viewPath)) {
+                mkdir($viewPath, 0777, true);
+            }
+
+            // Paksa Laravel menggunakan folder ini untuk menyimpan hasil compile blade/react
+            config(['view.compiled' => $viewPath]);
         }
     }
 }
