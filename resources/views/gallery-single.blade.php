@@ -5,17 +5,15 @@
 @section('body_class', 'gallery-single-page')
 
 @section('content')
-  {{-- 1. Elemen background terminal tetap di paling atas --}}
   <div id="faulty-terminal-background" class="terminal-container"></div>
 
-  {{-- 2. Pembungkus utama agar konten berada di depan terminal --}}
   <div class="main-content-wrapper">
     
     <div class="page-title transparent-bg" data-aos="fade">
       <div class="heading">
-        <div class="container">
-          <div class="row d-flex justify-content-center text-center">
-            <div class="col-lg-8">
+        <div class="container" style="padding-top: 50px;">
+          <div class="row d-flex justify-content-center text-center ">
+            <div class="col-lg-8 ">
               <h1 class="gallery-single-title">{{ $gallery->title }}</h1>
               <p class="gallery-single-subtitle">{{ $gallery->description ?? 'Tidak ada deskripsi untuk foto ini.' }}</p>
             </div>

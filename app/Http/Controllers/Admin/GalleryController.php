@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
-    // 1. LIHAT DAFTAR FOTO
     public function index() {
         $galleries = Gallery::latest()->get();
         return view('admin.gallery.index', compact('galleries'));
@@ -20,27 +19,37 @@ class GalleryController extends Controller
         return view('admin.gallery.create');
     }
 
+    // --- FITUR MULTI-UPLOAD ---
     public function store(Request $request) {
         $request->validate([
             'title' => 'required|max:255',
             'category' => 'required',
-            'image' => 'required|image|max:10240',
+            'image' => 'required', 
+            'image.*' => 'image|max:10240', // Validasi setiap file di dalam array
         ]);
 
-        $imagePath = $request->file('image')->store('gallery', 'public');
+        if ($request->hasFile('image')) {
+            $files = $request->file('image');
+            
+            foreach ($files as $file) {
+                // Simpan file fisik
+                $imagePath = $file->store('gallery', 'public');
 
-        Gallery::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
-            'category' => $request->category,
-            'image' => $imagePath,
-            'description' => $request->description,
-        ]);
+                // Simpan ke Database
+                Gallery::create([
+                    'title' => $request->title,
+                    // Tambahkan random string di slug agar tidak error Duplicate Entry
+                    'slug' => Str::slug($request->title) . '-' . Str::lower(Str::random(5)),
+                    'category' => $request->category,
+                    'image' => $imagePath,
+                    'description' => $request->description,
+                ]);
+            }
+        }
 
-        return redirect()->route('admin.gallery.index')->with('success', 'Foto berhasil ditambah!');
+        return redirect()->route('admin.gallery.index')->with('success', count($files) . ' Foto berhasil ditambah!');
     }
 
-    // 2. EDIT FOTO
     public function edit($id) {
         $gallery = Gallery::findOrFail($id);
         return view('admin.gallery.edit', compact('gallery'));
@@ -56,13 +65,14 @@ class GalleryController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($gallery->image); // Hapus foto lama
+            Storage::disk('public')->delete($gallery->image);
             $gallery->image = $request->file('image')->store('gallery', 'public');
         }
 
         $gallery->update([
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            // Saat update satu per satu, slug tetap kita beri random untuk keamanan
+            'slug' => Str::slug($request->title) . '-' . Str::lower(Str::random(5)),
             'category' => $request->category,
             'description' => $request->description,
         ]);
@@ -70,11 +80,10 @@ class GalleryController extends Controller
         return redirect()->route('admin.gallery.index')->with('success', 'Foto berhasil diperbarui!');
     }
 
-    // 3. HAPUS FOTO
     public function destroy($id) {
         $gallery = Gallery::findOrFail($id);
-        Storage::disk('public')->delete($gallery->image); // Hapus file fisiknya
-        $gallery->delete(); // Hapus datanya di database
+        Storage::disk('public')->delete($gallery->image);
+        $gallery->delete();
 
         return redirect()->route('admin.gallery.index')->with('success', 'Foto berhasil dihapus!');
     }

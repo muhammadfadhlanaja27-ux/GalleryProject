@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Upload Foto Baru</title>
+    <title>Admin - Bulk Upload Foto</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -35,7 +35,6 @@
             border-radius: 12px;
         }
 
-        /* Form Styling - No White */
         .form-label {
             color: var(--accent-pink);
             font-size: 0.9rem;
@@ -56,7 +55,6 @@
             outline: none;
         }
 
-        /* Khusus input file */
         .form-control::file-selector-button {
             background-color: #1a1a1a;
             color: var(--accent-pink);
@@ -64,9 +62,9 @@
             border-right: 1px solid var(--border-color);
             margin-right: 15px;
             padding: 5px 15px;
+            cursor: pointer;
         }
 
-        /* Button Styling */
         .btn-save {
             background-color: var(--accent-pink);
             color: #000;
@@ -90,6 +88,7 @@
             border: 1px solid var(--border-color);
             color: var(--text-main);
             transition: 0.2s;
+            text-decoration: none;
         }
 
         .btn-back:hover {
@@ -98,8 +97,7 @@
         }
 
         ::placeholder {
-            color: #333 !important;
-            font-size: 0.85rem;
+            color: #444 !important;
         }
     </style>
 </head>
@@ -107,7 +105,7 @@
 
     <nav class="navbar mb-5">
         <div class="container">
-            <span class="navbar-brand fw-bold" style="color: var(--accent-pink);">ADMIN <span style="color: #666;">UPLOAD</span></span>
+            <span class="navbar-brand fw-bold" style="color: var(--accent-pink);">ADMIN <span style="color: #666;">BULK UPLOAD</span></span>
             <a href="{{ route('admin.gallery.index') }}" class="btn btn-sm btn-back px-3">
                 <i class="bi bi-chevron-left"></i> Batal
             </a>
@@ -119,9 +117,19 @@
             <div class="col-lg-6">
                 
                 <div class="mb-4 text-center">
-                    <h3 class="text-white mb-1">Upload Foto Baru</h3>
-                    <p class="small text-secondary">Tambahkan koleksi foto terbaru ke dalam gallery.</p>
+                    <h3 class="text-white mb-1">Upload Banyak Foto</h3>
+                    <p class="small text-secondary">Satu judul dan kategori akan diterapkan ke semua foto yang dipilih.</p>
                 </div>
+
+                @if ($errors->any())
+                    <div class="alert alert-danger bg-dark text-danger border-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <div class="card shadow-lg">
                     <div class="card-body p-4">
@@ -129,35 +137,35 @@
                             @csrf
 
                             <div class="mb-4">
-                                <label class="form-label">Judul Foto</label>
-                                <input type="text" name="title" class="form-control" placeholder="Contoh: Liburan di Pantai" required>
+                                <label class="form-label">Judul Foto (Berlaku untuk semua)</label>
+                                <input type="text" name="title" class="form-control" placeholder="Contoh: Photoshoot 2024" value="{{ old('title') }}" required>
                             </div>
 
                             <div class="mb-4">
                                 <label class="form-label">Kategori</label>
                                 <select name="category" class="form-select" required>
                                     <option value="" selected disabled>Pilih Kategori...</option>
-                                    <option value="Sendiri">Sendiri</option>
-                                    <option value="Berdua">Berdua</option>
+                                    <option value="Sendiri" {{ old('category') == 'Sendiri' ? 'selected' : '' }}>Sendiri</option>
+                                    <option value="Berdua" {{ old('category') == 'Berdua' ? 'selected' : '' }}>Berdua</option>
                                 </select>
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label">Pilih Gambar</label>
-                                <input type="file" name="image" class="form-control" required>
+                                <label class="form-label">Pilih Gambar (Bisa pilih banyak sekaligus)</label>
+                                <input type="file" name="image[]" class="form-control" multiple required>
                                 <div class="mt-2" style="font-size: 0.7rem; color: #555;">
-                                    <i class="bi bi-info-circle me-1"></i> Format: JPG, PNG, JPEG (Maks 10MB)
+                                    <i class="bi bi-info-circle me-1"></i> Tekan CTRL/CMD untuk memilih lebih dari 1 file. Maks 10MB per file.
                                 </div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label">Deskripsi (Opsional)</label>
-                                <textarea name="description" rows="4" class="form-control" placeholder="Tuliskan cerita singkat tentang foto ini..."></textarea>
+                                <label class="form-label">Deskripsi Singkat (Opsional)</label>
+                                <textarea name="description" rows="3" class="form-control" placeholder="Tuliskan deskripsi untuk kelompok foto ini...">{{ old('description') }}</textarea>
                             </div>
 
                             <div class="d-grid mt-5">
                                 <button type="submit" class="btn btn-save">
-                                    <i class="bi bi-cloud-arrow-up-fill me-2"></i> Simpan & Publish
+                                    <i class="bi bi-cloud-arrow-up-fill me-2"></i> Upload Foto
                                 </button>
                             </div>
                         </form>

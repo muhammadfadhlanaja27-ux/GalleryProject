@@ -15,7 +15,7 @@
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
               
-              <h1 style="color: white;">
+              <h1 style="color: white; padding-top: 50px;">
                 @isset($category)
                     Gallery: {{ ucfirst($category) }}
                 @else
