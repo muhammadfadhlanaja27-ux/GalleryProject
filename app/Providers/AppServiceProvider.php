@@ -19,18 +19,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Cek apakah aplikasi berjalan di Vercel (Production)
+        // Cek apakah berjalan di Vercel
         if (config('app.env') === 'production') {
-            // Tentukan folder di /tmp karena hanya ini yang bisa ditulis di Vercel
-            $viewPath = '/tmp/storage/framework/views';
+            // Tentukan folder temporary yang diizinkan Vercel
+            $tempPath = '/tmp/storage/framework';
+            $viewsPath = $tempPath . '/views';
 
-            // Buat foldernya jika belum ada
-            if (!is_dir($viewPath)) {
-                mkdir($viewPath, 0777, true);
+            // Buat struktur folder jika belum ada
+            if (!is_dir($viewsPath)) {
+                mkdir($viewsPath, 0777, true);
             }
 
-            // Set konfigurasi view laravel secara runtime
-            config(['view.compiled' => $viewPath]);
+            // Paksa Laravel menggunakan folder /tmp untuk compile view
+            config(['view.compiled' => $viewsPath]);
+
+            // Tambahan: Pastikan folder sessions juga aman (opsional tapi disarankan)
+            config(['session.files' => $tempPath . '/sessions']);
         }
     }
 }
